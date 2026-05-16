@@ -1,5 +1,8 @@
 // express web server
 const express = require('express');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger-output.json');
+
 const app = express();
 
 const { connectToDatabase } = require('./data/database');
@@ -8,6 +11,8 @@ const { connectToDatabase } = require('./data/database');
 const contactsRoutes = require('./routes/contacts');
 
 app.use(express.json());
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.get('/', (req, res) => {
   res.send('Konnor Kraft');
